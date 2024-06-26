@@ -1,12 +1,10 @@
-spool U:/541-SQL/HW5/HW5alog.txt
+
 --CPS541 
 --Riad Hossain
---Homework 5a
---Due: Saturday, Oct 18, 2023
 
 set echo on;
-set linesize 220;
-set pagesize 150;
+set linesize 300;
+set pagesize 250;
 
 DROP TABLE EMPLOYEE cascade constraints;
 --Creating EMPLOYEE Table
@@ -195,6 +193,341 @@ SELECT * FROM PROJECT;
 
 --Printing DEPENDENT Table
 SELECT * FROM DEPENDENT;
+
+DROP TABLE EMPLOYEE cascade constraints;
+--Creating EMPLOYEE Table
+CREATE TABLE EMPLOYEE(
+  Fname        VARCHAR2(16)    NOT NULL,
+  Minit        VARCHAR2(2),
+  Lname        VARCHAR2(16)    NOT NULL,
+  Ssn          NUMBER(9)       NOT NULL,
+  Bdate        DATE,
+  Address      VARCHAR2(35),
+  Sex          VARCHAR2(1),
+  Salary       NUMBER(10),
+  Super_ssn    NUMBER(9),
+  Dno          NUMBER(1)       NOT NULL);
+
+INSERT INTO EMPLOYEE
+  VALUES('John', 'B', 'Smith', 123456789, '09 Jan, 1965', '731 Fondren, Houston, TX', 'M', 30000, 333445555, 5);
+INSERT INTO EMPLOYEE
+  VALUES('Franklin', 'T', 'Wong', 333445555, '08 Dec, 1955', '638 Voss, Houston, TX', 'M', 40000, 888665555, 5);
+INSERT INTO EMPLOYEE
+  VALUES('Alicia', 'J', 'Zelaya', 999887777, '19 Jan, 1968', '3321 Castle, Spring, TX', 'F', 25000, 987654321, 4);
+INSERT INTO EMPLOYEE
+  VALUES('Jennifer', 'S', 'Wallace', 987654321, '20 Jun, 1941', '291 Berry, Bellaire, TX', 'F', 43000, 888665555, 4);
+INSERT INTO EMPLOYEE
+  VALUES('Ramesh', 'K', 'Narayan', 666884444, '15 Sep, 1962', '975 Fire Oak, Humble, TX', 'M', 38000, 333445555, 5);
+INSERT INTO EMPLOYEE
+  VALUES('Joyce', 'A', 'English', 453453453, '31 Jul, 1972', '5631 Rice, Houston, TX', 'F', 25000, 333445555, 5);
+INSERT INTO EMPLOYEE
+  VALUES('Ahmad', 'V', 'Jabbar', 987987987, '29 Mar, 1969', '980 Dallas, Houston, TX', 'M', 25000, 987654321, 4);
+INSERT INTO EMPLOYEE
+  VALUES('James', 'E', 'Borg', 888665555, '10 Nov, 1937', '450 Stone, Houston, TX', 'M', 55000, NULL, 1);
+
+DROP TABLE DEPARTMENT cascade constraints;
+--Creating DEPARTMENT Table
+CREATE TABLE DEPARTMENT(
+  Dname              VARCHAR2(16)  NOT NULL,
+  Dnumber            NUMBER(2)     NOT NULL,
+  Mgr_ssn            NUMBER(9)     NOT NULL,
+  Mgr_start_date     DATE);
+
+INSERT INTO DEPARTMENT
+  VALUES('Research', 5, 333445555, '22 May, 1988');
+INSERT INTO DEPARTMENT
+  VALUES('Administration', 4, 987654321, '01 Jan, 1995');
+INSERT INTO DEPARTMENT
+  VALUES('Headquarters', 1, 888665555, '19 Jun, 1981');
+
+DROP TABLE DEPT_LOCATION cascade constraints;
+--Creating DEPT_LOCATION Table
+CREATE TABLE DEPT_LOCATION(
+  Dnumber          NUMBER(2)     NOT NULL,
+  Dlocation        VARCHAR2(16)  NOT NULL);
+
+INSERT INTO DEPT_LOCATION
+  VALUES(1, 'Houston');
+INSERT INTO DEPT_LOCATION
+  VALUES(4, 'Stafford');
+INSERT INTO DEPT_LOCATION
+  VALUES(5, 'Bellaire');
+INSERT INTO DEPT_LOCATION
+  VALUES(5, 'Sugarland');
+INSERT INTO DEPT_LOCATION
+  VALUES(5, 'Houston');
+
+DROP TABLE PROJECT cascade constraints;
+--Creating PROJECT Table
+CREATE TABLE PROJECT(
+  Pname           VARCHAR2(16)   NOT NULL,
+  Pnumber         NUMBER(4)      NOT NULL,
+  Plocation       VARCHAR2(16),
+  Dnum            NUMBER(2)      NOT NULL);
+
+INSERT INTO PROJECT
+  VALUES('ProductX', 1, 'Bellaire', 5);
+INSERT INTO PROJECT
+  VALUES('ProductY', 2, 'Sugarland', 5);
+INSERT INTO PROJECT
+  VALUES('ProductZ', 3, 'Houston', 5);
+INSERT INTO PROJECT
+  VALUES('Computerization', 10, 'Stafford', 4);
+INSERT INTO PROJECT
+  VALUES('Reorganization', 20, 'Houston', 1);
+INSERT INTO PROJECT
+  VALUES('Newbenefits', 30, 'Stafford', 4);
+
+DROP TABLE WORKS_ON cascade constraints;
+--Creating WORKS_ON Table
+CREATE TABLE WORKS_ON(
+  Essn       NUMBER(9)   NOT NULL,
+  Pno        NUMBER(2)   NOT NULL,
+  Hours      FLOAT(6));
+
+INSERT INTO WORKS_ON
+  VALUES(123456789, 1, 32.5);
+INSERT INTO WORKS_ON
+  VALUES(123456789, 2, 7.5);
+INSERT INTO WORKS_ON
+  VALUES(666884444, 3, 40.0);
+INSERT INTO WORKS_ON
+  VALUES(453453453, 1, 20.0);
+INSERT INTO WORKS_ON
+  VALUES(453453453, 2, 20.0);
+INSERT INTO WORKS_ON
+  VALUES(333445555, 2, 10.0);
+INSERT INTO WORKS_ON
+  VALUES(333445555, 3, 10.0);
+INSERT INTO WORKS_ON
+  VALUES(333445555, 10, 10.0);
+INSERT INTO WORKS_ON
+  VALUES(333445555, 20, 10.0);
+INSERT INTO WORKS_ON
+  VALUES(999887777, 30, 30.0);
+INSERT INTO WORKS_ON
+  VALUES(999887777, 10, 10.0);
+INSERT INTO WORKS_ON
+  VALUES(987987987, 10, 35.0);
+INSERT INTO WORKS_ON
+  VALUES(987987987, 30, 5.0);
+INSERT INTO WORKS_ON
+  VALUES(987654321, 30, 20.0);
+INSERT INTO WORKS_ON
+  VALUES(987654321, 20, 15.0);
+INSERT INTO WORKS_ON
+  VALUES(888665555, 20, NULL);
+
+
+DROP TABLE DEPENDENT cascade constraints;
+--Creating DEPENDENT Table
+CREATE TABLE DEPENDENT(
+  Essn             NUMBER(9)      NOT NULL,
+  Dependent_name   VARCHAR2(16)   NOT NULL,
+  Sex              VARCHAR2(1),
+  Bdate            DATE,
+  Relationship     VARCHAR2(16));
+
+INSERT INTO DEPENDENT
+  VALUES(333445555, 'Alice', 'F', '05 Apr, 1986', 'Daughter');
+INSERT INTO DEPENDENT
+  VALUES(333445555, 'Theodore', 'M', '25 Oct, 1983', 'Son');
+INSERT INTO DEPENDENT
+  VALUES(333445555, 'Joy', 'F', '03 May, 1958', 'Spouse');
+INSERT INTO DEPENDENT
+  VALUES(987654321, 'Abner', 'M', '28 Feb, 1942', 'Spouse');
+INSERT INTO DEPENDENT
+  VALUES(123456789, 'Michael', 'M', '04 Jan, 1988', 'Son');
+INSERT INTO DEPENDENT
+  VALUES(123456789, 'Alice', 'F', '30 Dec, 1988', 'Daughter');
+INSERT INTO DEPENDENT
+  VALUES(123456789, 'Elizabeth', 'F', '05 May, 1967', 'Spouse');
+
+
+-- Query 0
+-- Q0
+
+SELECT Bdate, Address
+FROM EMPLOYEE
+WHERE Fname='John' AND Minit='B' AND Lname='Smith';
+
+-- Query 1
+-- Q1
+
+SELECT Fname, Lname, Address
+FROM EMPLOYEE, DEPARTMENT
+WHERE Dname='Research' AND Dnumber=Dno;
+
+-- Query 2
+-- Q2
+
+SELECT Pnumber, Dnum, Lname, Address, Bdate
+FROM PROJECT, DEPARTMENT, EMPLOYEE
+WHERE Dnum=Dnumber AND Mgr_ssn=Ssn AND Plocation='Stafford';
+
+-- Q1A
+-- Will give an error, because of fully unqualified attribute name
+
+SELECT Fname, EMPLOYEE.Name, Address
+FROM EMPLOYEE, DEPARTMENT
+WHERE DEPARTMENT.Name='Research' AND DEPARTMENT.Dnumber=EMPLOYEE.Dnumber;
+
+-- Q1'
+
+SELECT EMPLOYEE.Fname, EMPLOYEE.LName, EMPLOYEE.Address
+FROM EMPLOYEE, DEPARTMENT
+WHERE DEPARTMENT.DName = 'Research' AND DEPARTMENT.Dnumber = EMPLOYEE.Dno;
+
+-- Query 8
+-- Q8
+
+SELECT E.Fname, E.Lname, S.Fname, S.Lname
+FROM EMPLOYEE E, EMPLOYEE S
+WHERE E.Super_ssn=S.Ssn;
+
+-- Q1B
+
+SELECT E.Fname, E.LName, E.Address
+FROM EMPLOYEE E, DEPARTMENT D
+WHERE D.DName = 'Research' AND D.Dnumber = E.Dno;
+
+-- Query 9
+--  Q9
+
+SELECT Ssn
+FROM EMPLOYEE;
+
+-- Query 10
+--  Q10
+
+SELECT Ssn, Dname
+FROM EMPLOYEE, DEPARTMENT;
+
+
+-- Q1C
+SELECT * FROM EMPLOYEE
+WHERE Dno = 5;
+
+--- Q1D
+
+SELECT * FROM EMPLOYEE, DEPARTMENT
+WHERE Dname = 'Research' AND Dno = Dnumber;
+
+-- Q10A
+
+SELECT * FROM EMPLOYEE, DEPARTMENT;
+
+-- Query 11
+-- Q11
+
+SELECT ALL Salary FROM EMPLOYEE;
+
+-- Q11A
+
+SELECT DISTINCT Salary FROM EMPLOYEE;
+
+
+-- Query 4
+-- Q4A
+
+( SELECT DISTINCT Pnumber
+ FROM PROJECT, DEPARTMENT, EMPLOYEE
+ WHERE Dnum = Dnumber AND Mgr_ssn = Ssn AND Lname = 'Smith' )
+ UNION
+( SELECT DISTINCT Pnumber
+ FROM PROJECT, WORKS_ON, EMPLOYEE
+ WHERE Pnumber = Pno AND Essn = Ssn AND Lname = 'Smith' );
+
+-- Query 12
+-- Q12
+
+SELECT *
+FROM EMPLOYEE
+WHERE Address LIKE '%Houston, TX%';
+
+-- Query 12A
+-- Q12 
+--No row will be selected, because % is needed
+
+SELECT Fname, Lname FROM EMPLOYEE
+WHERE Bdate LIKE '_ _ 7 _ _ _ _ _ _ _';
+
+
+-- Query 13
+-- Q13
+
+SELECT E.Fname, E.Lname, 1.1 * E.Salary AS Increased_sal 
+FROM EMPLOYEE E, WORKS_ON W, PROJECT P
+WHERE E.Ssn = W.Essn AND W.Pno = P.Pnumber AND P.Pname = 'ProductX';
+
+-- Query 14
+-- Q14
+
+SELECT * FROM EMPLOYEE
+WHERE (Salary BETWEEN 30000 AND 40000) AND Dno = 5;
+
+-- Query 15
+-- Q15
+
+SELECT D.Dname, E.Lname, E.Fname, P.Pname
+FROM DEPARTMENT D, EMPLOYEE E, WORKS_ON W, PROJECT P
+WHERE D.Dnumber = E.Dno AND E.Ssn = W.Essn AND W.Pno = P.Pnumber
+ORDER BY D.Dname DESC, E.Lname ASC, E.Fname ASC;
+
+
+-- INSERT, DELETE, and UPDATE Queries
+
+
+-- U1
+
+INSERT INTO EMPLOYEE
+VALUES ('Richard', 'K', 'Marini', 653298653, '30 Dec, 1962', '98 Oak Forest, Katy, TX', 'M', 37000, 653298653, 4);
+
+-- U1A
+
+INSERT INTO EMPLOYEE (Fname, Lname, Dno, Ssn)
+VALUES ('Richard', 'Marini', 4, 653298653);
+
+-- U2
+
+INSERT INTO EMPLOYEE (Fname, Lname, Ssn, Dno)
+VALUES ('Robert', 'Hatcher', 980760540, 2);
+
+-- U2A 
+-- will give an error, because of a NOT NULL attribute named Ssn
+
+INSERT INTO EMPLOYEE (Fname, Lname, Dno)
+VALUES ('Robert', 'Hatcher', 5);
+
+-- U3A
+
+DROP TABLE WORKS_ON_INFO cascade constraints;
+--Creating WORKS_ON_INFO Table
+j
+CREATE TABLE WORKS_ON_INFO
+(Emp_name VARCHAR(15), 
+ Proj_name VARCHAR(15), 
+ Hours_per_week DECIMAL(3,1));
+
+-- U3B
+
+INSERT INTO WORKS_ON_INFO (Emp_name, Proj_name, Hours_per_week)
+SELECT E.Lname, P.Pname, W.Hours
+FROM PROJECT P, WORKS_ON W, EMPLOYEE E
+WHERE P.Pnumber = W.Pno AND W.Essn = E.Ssn;
+
+-- U5
+
+UPDATE PROJECT
+SET Plocation = 'Bellaire', Dnum = 5
+WHERE Pnumber = 10;
+
+-- U6
+
+UPDATE EMPLOYEE
+SET Salary = Salary * 1.1
+WHERE Dno = 5;
+
 
 -- Query 18. Retrieve the names of all employees who do not have supervisors.
 -- Q18
@@ -472,5 +805,3 @@ WITH RECURSIVE SUP_EMP (SupSsn, EmpSsn) AS
       WHERE E.SupervisorSsn = S.EmpSsn)
  SELECT *
  FROM SUP_EMP;
-
-spool off;
